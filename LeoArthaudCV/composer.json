@@ -1,0 +1,6 @@
+{
+    "require": {
+        "symfony-bundles/bundle-dependency": "^1.0",
+        "symfony/orm-pack": "^1.0"
+    }
+}

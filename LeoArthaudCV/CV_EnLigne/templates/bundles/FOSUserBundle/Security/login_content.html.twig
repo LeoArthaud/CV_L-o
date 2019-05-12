@@ -1,0 +1,43 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">
+            <img class="image logo" src="{{ asset('/images/Portrait.png') }}" alt="Portrait"/>
+            <span class="icon "></span>
+        </div>
+        <div class="content">
+            <div class="inner">
+                <h1>Léo Arthaud</h1>
+                <p>Bienvenu sur mon site ! </p>
+            </div>
+        </div>
+        <nav style="height: 0">
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+
+                <label for="username">{{ 'security.login.username'|trans }}</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+
+                <label for="password">{{ 'security.login.password'|trans }}</label>
+                <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
+
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </form>
+        </nav>
+    </header>
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+
+
+{% endblock %}

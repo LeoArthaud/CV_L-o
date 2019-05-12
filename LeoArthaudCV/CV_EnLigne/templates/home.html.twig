@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+{% use 'form.html.twig' %}
+
+{% block body %}
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <div class="logo">
+                <img class="image logo" src="{{ asset('/images/Portrait.png') }}" alt="Portrait"/>
+                <span class="icon "></span>
+            </div>
+            <div class="content">
+                <div class="inner">
+                    <h1>Léo Arthaud</h1>
+                    <p>Bienvenu sur mon site ! </p>
+                </div>
+            </div>
+            <nav>
+
+                <ul>
+                    {% if is_granted('ROLE_ADMIN') == false %}
+                    <li><a href="#mon_profil">Mon profil</a></li>
+                    <li><a href="#skills">Compêtences</a></li>
+                    <li><a href="#etudes">Etudes</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    {% elseif is_granted('ROLE_ADMIN') %}
+                    <li><a href="#message">Message</a></li>
+                    <li><a href="logout">logout</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+            {% if is_granted('ROLE_ADMIN') == false %}
+
+            <!-- Mon Profil -->
+            <article id="mon_profil">
+                <h2 class="major">Mon profil</h2>
+                <span class="image main"><img src="{{ asset('/images/pic01.jpg') }}" alt=""/></span>
+                <p> Ici je me presente moi, mais auss ce que j'aime, mes ambitions, mes qualitées mais aussi mes
+                    defauts</p>
+            </article>
+
+            <!-- Skills -->
+            <article id="skills">
+                <h2 class="major">Compêtences</h2>
+                <span class="image main">
+                    <div id="blockBars">
+                        <h3 class="major">Langages & Frameworks</h3>
+                        <div id="containerbars">
+                            <p id="nameLangage">HTML/CSS</p>
+                            <div id="barHTML/CSS" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameLangage">PHP</p>
+                            <div id="barPHP" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameLangage">Symfony</p>
+                            <div id="barSymfony" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameLangage">SQL</p>
+                            <div id="barSQL" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameLangage">C#</p>
+                            <div id="barC#" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameLangage">C++</p>
+                            <div id="barC++" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameLangage">C</p>
+                            <div id="barC" class="skillsBar"></div>
+                        </div>
+                    </div>
+
+                    <h3 class="major">Logiciels</h3>
+
+                    <div id="blockBars">
+                        <div id="containerbars">
+                            <p id="nameSoft">VisualStudio</p>
+                            <div id="hcVisual" class="skillsBar"></div>
+                        </div>
+                        <div id="containerbars">
+                            <p id="nameSoft">Unity3D</p>
+                            <div id="hcUnity3D" class="skillsBar"></div>
+                        </div>
+                    </div>
+
+                    <div id="blockBars">
+                        <div id="containerbars">
+                            <p id="nameSoft">PhpStorm</p>
+                            <div id="hcPhpStorm" class="skillsBar"></div>
+                        </div>
+
+                        <div id="containerbars">
+                            <p id="nameSoft">PackOffice</p>
+                            <div id="hcPackOffice" class="skillsBar"></div>
+                        </div>
+                    </div>
+                </span>
+
+            </article>
+
+            <!-- Etude -->
+            <article id="etudes">
+                <h2 class="major">Etudes</h2>
+                <span class="image main">
+                <img src="{{ asset('/images/logoEPSI2.png') }}" alt="Logo EPSI"/>
+                <p>Îci un listing de mes etudes, en commencent par le plus recent</p>
+                </span>
+
+            </article>
+
+            <!-- About -->
+            <article id="experience">
+                <h2 class="major">Experiance</h2>
+                <span class="image main"><img src="{{ asset('/images/pic03.jpg') }}" alt=""/></span>
+                <p>Ici presenter tout mes stages, ce que j'y ai fait et ce que j'y ai appris</p>
+            </article>
+
+            <!-- Contact -->
+            <article id="contact">
+                <h2 class="major">Contact</h2>
+                {{ include('form.html.twig') }}
+                <ul class="icons">
+                    <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                    <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                    <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                    <li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+                </ul>
+            </article>
+
+            {% elseif is_granted('ROLE_ADMIN') %}
+            <!-- voir les messages -->
+            <article id="message">
+                <h2 class="major">Messages</h2>
+                <span class="image main" >
+                {% for commentary in commentaires %}
+                    {% for visitor in visiteur %}
+                        {%  if visitor.id == commentary.id %}
+                        <div class="affichageMessage">
+                            <p>Nom: {{ visitor.name }}</p>
+                            <p>Email: {{ visitor.email }}</p>
+                            <p>A ecrit: {{ commentary.commentary }}</p>
+                        </div>
+                        </br>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </span>
+            </article>
+
+                <article id="Logout">
+                    <h2 class="major">Logout</h2>
+                    <span class="image main" >
+                    </span>
+                </article>
+
+            {%  endif %}
+
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright"> Made by Léo Arthaud with &#10084, design by &copy; Untitled. Design: <a
+                        href="https://html5up.net">HTML5 UP</a></p>
+        </footer>
+
+    </div>
+
+    <!-- BG -->
+    <div id="bg"></div>
+    {% block javascripts %}
+    {% endblock %}
+
+{% endblock %}

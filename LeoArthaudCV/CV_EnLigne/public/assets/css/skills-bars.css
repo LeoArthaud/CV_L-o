@@ -1,0 +1,40 @@
+.skillsBar {
+    margin-bottom: 30px;
+    width: 100%;
+    height: 8px;
+    position: relative;
+    display: flex;
+}
+
+#nameLangage, #nameSoft {
+    margin: 0px;
+}
+
+#containerbars{
+    display: block;
+}
+
+#blockHalfCircles{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#blockHalfCircles:last-child{
+    margin-top: 50px;
+}
+
+
+.halfCircle {
+    margin: 20px;
+    width: 200px;
+    height: 100px;
+}
+
+@media screen and (max-width: 540px) {
+    .halfCircle {
+        margin: 20px;
+        width: 100px;
+        height: 50px;
+    }
+}
